@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>LaKa — Thổ địa AI bỏ túi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="phone" id="app">
+    <section class="screen active" id="screen-welcome">
+      <div class="dot-bg"></div>
+      <div class="center-wrap">
+        <div class="logo-mark">LaKa</div>
+        <div class="avatar" id="avatarPreview">?</div>
+        <h1>Chào mừng bạn đến với LaKa!</h1>
+        <p>Thổ địa AI bỏ túi giúp bạn lên lịch trình du lịch theo vibe, ngân sách và số ngày.</p>
+        <div class="input-group">
+          <label for="userName">Tên của bạn</label>
+          <input id="userName" maxlength="20" placeholder="Ví dụ: Minh" autocomplete="off" />
+        </div>
+        <button class="btn btn-orange" id="startBtn">Bắt đầu hành trình →</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-home">
+      <div class="dot-bg"></div>
+      <div class="page-wrap">
+        <header class="topbar">
+          <div>
+            <p class="muted" id="greetingText">Chào buổi sáng ☀️</p>
+            <h2><span id="displayName">Minh</span> <em>ơi,</em></h2>
+          </div>
+          <div class="avatar small" id="homeAvatar">M</div>
+        </header>
+
+        <button class="hero-card ripple" id="newTripBtn">
+          <span>HÔM NAY BẠN MUỐN ĐI ĐÂU?</span>
+          <strong>Chọn vibe và để AI lên lịch trình cho bạn.</strong>
+          <b>Bắt đầu ngay ——</b>
+        </button>
+
+        <h3 class="section-title">Gần đây</h3>
+        <div class="trip-card"><i></i><div><b>Đà Lạt ★ Chill</b><small>3 ngày · 3.000.000đ · Demo</small></div></div>
+        <div class="trip-card blue"><i></i><div><b>Hà Nội ★ Foodie</b><small>4 ngày · 5.000.000đ · Demo</small></div></div>
+        <div class="trip-card green"><i></i><div><b>Phú Quốc ★ Premium</b><small>5 ngày · 8.000.000đ · Demo</small></div></div>
+
+        <h3 class="section-title">Chọn vibe nhanh</h3>
+        <div class="chips" id="quickVibes">
+          <button data-vibe="Chill">CHILL</button>
+          <button data-vibe="Foodie">FOODIE</button>
+          <button data-vibe="Indie">INDIE</button>
+          <button data-vibe="Nightlife">NIGHTLIFE</button>
+        </div>
+      </div>
+      <nav class="tabbar">
+        <button class="active" data-screen="screen-home">🏠<span>Home</span></button>
+        <button data-screen="screen-plan">🧭<span>Plan</span></button>
+        <button data-screen="screen-passport">🏆<span>Passport</span></button>
+      </nav>
+    </section>
+
+    <section class="screen" id="screen-plan">
+      <div class="dot-bg"></div>
+      <div class="page-wrap scrollable">
+        <button class="back-btn" data-screen="screen-home">←</button>
+        <p class="step-label">BƯỚC 1/3</p>
+        <h2 class="big-title">Bạn muốn đi <em>đâu?</em></h2>
+
+        <div class="input-group search-box">
+          <label for="destination">Điểm đến</label>
+          <input id="destination" placeholder="Ví dụ: Đà Lạt, Hà Nội, Đà Nẵng..." autocomplete="off" />
+        </div>
+
+        <h3 class="section-title">Gợi ý nổi bật</h3>
+        <div class="city-grid" id="cityGrid"></div>
+
+        <button class="btn btn-dark" id="toVibeBtn">Tiếp theo ——</button>
+      </div>
+      <nav class="tabbar">
+        <button data-screen="screen-home">🏠<span>Home</span></button>
+        <button class="active" data-screen="screen-plan">🧭<span>Plan</span></button>
+        <button data-screen="screen-passport">🏆<span>Passport</span></button>
+      </nav>
+    </section>
+
+    <section class="screen vibe-screen" id="screen-vibe">
+      <div class="vibe-bg"></div>
+      <div class="page-wrap">
+        <button class="back-btn light" data-screen="screen-plan">←</button>
+        <p class="step-label light">BƯỚC 2/3</p>
+        <h2 class="big-title light">Chọn vibe chuyến đi</h2>
+        <div class="vibe-list" id="vibeList"></div>
+        <button class="btn btn-yellow" id="toBudgetBtn">Chọn vibe này →</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-budget">
+      <div class="dot-bg"></div>
+      <div class="page-wrap scrollable">
+        <button class="back-btn" data-screen="screen-vibe">←</button>
+        <p class="step-label">BƯỚC 3/3</p>
+        <h2 class="big-title">Ngân sách & số ngày</h2>
+
+        <h3 class="section-title">Số ngày</h3>
+        <div class="day-row" id="dayRow"></div>
+
+        <h3 class="section-title">Ngân sách</h3>
+        <div class="budget-grid" id="budgetGrid"></div>
+
+        <button class="btn btn-orange" id="generateBtn">Tạo lịch trình AI ✨</button>
+        <p class="hint">Demo này gọi AI qua Vercel API. Nếu chưa thêm GEMINI_API_KEY, app sẽ dùng dữ liệu demo.</p>
+      </div>
+    </section>
+
+    <section class="screen ai-screen" id="screen-loading">
+      <div class="dot-bg blue"></div>
+      <div class="center-wrap">
+        <div class="ai-ring"><span></span></div>
+        <h2>LaKa đang tạo lịch trình...</h2>
+        <p id="loadingText">Đang phân tích điểm đến, vibe và ngân sách.</p>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-result">
+      <div class="dot-bg"></div>
+      <div class="page-wrap scrollable">
+        <button class="back-btn" data-screen="screen-budget">←</button>
+        <p class="step-label">AI PREVIEW</p>
+        <h2 class="big-title">Lịch trình của bạn</h2>
+        <div class="summary-card" id="summaryCard"></div>
+        <div id="itineraryList"></div>
+        <button class="btn btn-green" id="finishTripBtn">Hoàn tất chuyến đi</button>
+      </div>
+    </section>
+
+    <section class="screen stamp-screen" id="screen-stamp">
+      <div class="dot-bg green"></div>
+      <div class="center-wrap">
+        <div class="stamp">✓<span id="stampCity">ĐÀ LẠT</span><small>LaKa Passport</small></div>
+        <h2>Chúc mừng!</h2>
+        <p>Bạn vừa nhận được stamp demo để chia sẻ lên story.</p>
+        <button class="btn btn-yellow" data-screen="screen-passport">Xem Passport</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-passport">
+      <div class="dot-bg"></div>
+      <div class="page-wrap scrollable">
+        <header class="passport-card">
+          <div class="avatar small" id="passportAvatar">M</div>
+          <div>
+            <p>LaKa Passport</p>
+            <h2 id="passportName">Minh</h2>
+          </div>
+        </header>
+        <h3 class="section-title">Stamp đã mở khóa</h3>
+        <div class="stamp-grid" id="passportStamps"></div>
+      </div>
+      <nav class="tabbar">
+        <button data-screen="screen-home">🏠<span>Home</span></button>
+        <button data-screen="screen-plan">🧭<span>Plan</span></button>
+        <button class="active" data-screen="screen-passport">🏆<span>Passport</span></button>
+      </nav>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
